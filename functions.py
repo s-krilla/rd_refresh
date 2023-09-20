@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from rd_api_py.rdapi import *
+from rdapi import RD
 
 def get_all(type):
     page = 1

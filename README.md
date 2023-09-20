@@ -4,19 +4,19 @@ A set of useful scripts for managing a Real Debrid library
 
 ## Installation 
 
-Copy `rd_api_py` into the `rd_refresh` directory
+Install dependency: [rd_api_py](https://github.com/s-krilla/rd_api_py)
 
 ## Usage
 
 Set up cron jobs to execute operations - for example:
-```
+```bash
 sudo chmod +x unrestrict.py
 sudo chmod +x refresh.py
 ```
 
 ```
-0 3 * * * /some/path/unrestrict.py
-*/15 * * * * /some/path/refresh.py
+0 3 * * * /path/to/unrestrict.py
+*/15 * * * * /path/to/refresh.py
 ```
 
 ### unrestrict.py
