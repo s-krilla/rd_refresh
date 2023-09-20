@@ -1,4 +1,3 @@
 __pycache__/
 .vscode/
-.env
-test.py
+rd_api_py/
