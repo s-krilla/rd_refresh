@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import sys
+import time
 from functions import *
 
 torrents = get_all('torrents')
@@ -22,6 +23,7 @@ for link in restricted_links:
             logging.warning('Found bad link:' + '\n' + str(link))
     else:
         logging.info('Unrestricted:' + '\n' + response['filename'])
+    time.sleep(0.2)
 
 if len(bad_links) > 0:
     logging.warning('Found bad links:' + '\n' + str(bad_links))
@@ -30,7 +32,8 @@ bad_torrents = find_bad_torrents(torrents, bad_links)
 
 for bad_torrent in bad_torrents:
     refresh_torrent(bad_torrent)
-
+    time.sleep(0.2)
+    
 logging.info('Done')    
 
 sys.exit()
