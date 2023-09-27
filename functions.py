@@ -2,6 +2,10 @@
 
 import sys
 import logging
+
+from dotenv import load_dotenv
+load_dotenv()
+
 from rdapi import RD
 
 logging.basicConfig(
