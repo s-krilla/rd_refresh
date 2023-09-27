@@ -4,7 +4,13 @@ A set of useful scripts for managing a Real Debrid library
 
 ## Installation 
 
-Install dependency: [rd_api_py](https://github.com/s-krilla/rd_api_py)
+Install [rd_api_py](https://github.com/s-krilla/rd_api_py)
+
+```
+python -m pip install rd_api_py
+```
+
+Set `RD_APITOKEN` in `.env`
 
 ## Usage
 
@@ -23,7 +29,7 @@ sudo chmod +x refresh.py
 
 - Compares torrent and downloads and finds restricted downloads links
 - Unrestricts download links
-- Refreshes bad torrents
+- Refreshes "bad" torrents
 
 ### refresh.py
 
