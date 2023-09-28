@@ -8,6 +8,8 @@ load_dotenv()
 
 from rdapi import RD
 
+RD = RD()
+
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s:%(levelname)s:%(message)s',
@@ -24,9 +26,9 @@ def get_all(type):
     while True:
         request = None
         if type == 'torrents':
-            request = RD().torrents.get(limit=2500, page=page)
+            request = RD.torrents.get(limit=2500, page=page)
         else:
-            request = RD().downloads.get(limit=2500, page=page)
+            request = RD.downloads.get(limit=2500, page=page)
         data = request.json()
         collected += data
         total = int(request.headers['X-Total-Count'])
@@ -40,7 +42,7 @@ def get_all(type):
     return collected
 
 def refresh_torrent(torrent):
-    old_torrent = RD().torrents.info(torrent['id']).json()
+    old_torrent = RD.torrents.info(torrent['id']).json()
     logging.warning('Refreshing old torrent:' + '\n' + str(old_torrent['filename']))
     old_torrent_files = old_torrent['files']
     files_to_keep = []
@@ -49,11 +51,11 @@ def refresh_torrent(torrent):
             files_to_keep.append(file['id'])
     cs_files_to_keep = ','.join(map(str, files_to_keep))
     logging.info('Files to keep:' + '\n' + cs_files_to_keep)
-    new_torrent = RD().torrents.add_magnet(old_torrent['hash']).json()
+    new_torrent = RD.torrents.add_magnet(old_torrent['hash']).json()
     logging.info('New magnet added')
-    RD().torrents.select_files(new_torrent['id'], cs_files_to_keep)
+    RD.torrents.select_files(new_torrent['id'], cs_files_to_keep)
     logging.info('New files selected')
-    RD().torrents.delete(old_torrent['id'])
+    RD.torrents.delete(old_torrent['id'])
     logging.info('Old torrent deleted')
     return  
 
