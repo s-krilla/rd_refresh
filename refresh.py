@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 import sys
-import time
 from functions import *
 
 torrents = get_all('torrents')
