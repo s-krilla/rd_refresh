@@ -10,7 +10,13 @@ Install [rd_api_py](https://github.com/s-krilla/rd_api_py)
 python -m pip install rd_api_py
 ```
 
-Set `RD_APITOKEN` in `.env`
+Set environment variables in `.env`
+
+```bash
+RD_APITOKEN="your_token_here"
+SLEEP=100 # Delay (ms) between requests - optional
+LONG_SLEEP=5000 # Long delay (ms) every 500 requests - optional 
+```
 
 ## Usage
 
