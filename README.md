@@ -14,8 +14,8 @@ Set environment variables in `.env`
 
 ```bash
 RD_APITOKEN="your_token_here"
-SLEEP=100 # Delay (ms) between requests - optional
-LONG_SLEEP=5000 # Long delay (ms) every 500 requests - optional 
+SLEEP=100 # Delay (ms) between requests - optional, default recommended
+LONG_SLEEP=5000 # Long delay (ms) every 500 requests - optional, default recommended
 ```
 
 ## Usage
