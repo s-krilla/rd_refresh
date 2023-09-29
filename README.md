@@ -18,6 +18,24 @@ SLEEP=100 # Delay (ms) between requests - optional, default recommended
 LONG_SLEEP=5000 # Long delay (ms) every 500 requests - optional, default recommended
 ```
 
+## Docker
+Use the following docker-compose.yml
+```yaml
+version: "3"
+
+services:
+  rd_refresh:
+    container_name: rd_refresh
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+    - RD_APITOKEN=
+    restart: unless-stopped
+```
+To run: `docker compose up -d --build`
+
+
 ## Usage
 
 Set up cron jobs to execute operations - for example:
