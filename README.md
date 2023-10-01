@@ -18,8 +18,21 @@ SLEEP=100 # Delay (ms) between requests - optional, default recommended
 LONG_SLEEP=5000 # Long delay (ms) every 500 requests - optional, default recommended
 ```
 
+## Usage
+
+Set up cron jobs to execute operations - for example:
+```bash
+sudo chmod +x refresh.py
+```
+
+```
+*/15 * * * * /path/to/refresh.py
+```
+
+Or use Docker. 
+
 ## Docker
-Use the following docker-compose.yml
+
 ```yaml
 version: "3"
 
@@ -29,31 +42,13 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    env_file:
+      - .env                         # Be sure to change the env file to `.env` and update API Token.
     environment:
-    - RD_APITOKEN=
+      - RD_APITOKEN=yourtokenhere    # Alternatively set the token here instead of .env file. 
     restart: unless-stopped
 ```
 To run: `docker compose up -d --build`
-
-
-## Usage
-
-Set up cron jobs to execute operations - for example:
-```bash
-sudo chmod +x unrestrict.py
-sudo chmod +x refresh.py
-```
-
-```
-0 3 * * * /path/to/unrestrict.py
-*/15 * * * * /path/to/refresh.py
-```
-
-### unrestrict.py
-
-- Compares torrent and downloads and finds restricted downloads links
-- Unrestricts download links
-- Refreshes "bad" torrents
 
 ### refresh.py
 
@@ -61,4 +56,12 @@ sudo chmod +x refresh.py
 - Re-adds torrents
 - Selects the same files
 - Deletes the old torrent
+
+### unrestrict.py 
+
+**Warning - uses excessive API calls**
+
+- Compares torrent and downloads and finds restricted downloads links
+- Unrestricts download links
+- Refreshes "bad" torrents
 
