@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+  rd_refresh:
+    container_name: rd_refresh
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env                         # Be sure to change the env file to `.env` and update API Token.
+    environment:
+      - RD_APITOKEN=yourtokenhere    # Alternatively set the token here instead of .env file. 
+    restart: unless-stopped
