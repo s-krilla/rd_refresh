@@ -19,13 +19,13 @@ for link in restricted_links:
     if 'error_code' in response:
         if response['error_code'] == 19:
             bad_links.append(link)
-            logging.warning('Found bad link:' + '\n' + str(link))
+            logging.warning('Found bad link:\n%s', str(link))
     else:
-        logging.info('Unrestricted:' + '\n' + response['filename'])
+        logging.info('Unrestricted:\n%s', response['filename'])
     # time.sleep(0.2)
 
 if len(bad_links) > 0:
-    logging.warning('Found bad links:' + '\n' + str(bad_links))
+    logging.warning('Found bad links:\n%s', str(bad_links))
 
 bad_torrents = find_bad_torrents(torrents, bad_links)
 

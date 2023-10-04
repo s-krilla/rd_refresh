@@ -1,17 +1,18 @@
 #!/usr/bin/env python3
 
 import sys
+import os
 import logging
 
 from dotenv import load_dotenv
 load_dotenv()
 
 from rdapi import RD
-
 RD = RD()
 
+LOGLEVEL = os.getenv('LOGLEVEL', 'INFO').upper()
 logging.basicConfig(
-    level=logging.INFO,
+    level=LOGLEVEL,
     format='%(asctime)s:%(levelname)s:%(message)s',
     handlers=[
         logging.FileHandler('rd_refresh.log'),
@@ -38,19 +39,19 @@ def get_all(type):
 
         if remaining == 0:
             break
-    logging.info('Retrieved ' + str(len(collected)) + ' ' + type + ' from RD')            
+    logging.info('Retrieved %s %s from RD', str(len(collected)), type)
     return collected
 
 def refresh_torrent(torrent):
     old_torrent = RD.torrents.info(torrent['id']).json()
-    logging.warning('Refreshing old torrent:' + '\n' + str(old_torrent['filename']))
+    logging.warning('Refreshing old torrent:\n%s', str(old_torrent['filename']))
     old_torrent_files = old_torrent['files']
     files_to_keep = []
     for file in old_torrent_files:
         if file['selected'] == 1:
             files_to_keep.append(file['id'])
     cs_files_to_keep = ','.join(map(str, files_to_keep))
-    logging.info('Files to keep:' + '\n' + cs_files_to_keep)
+    logging.info('Files to keep:\n%s', cs_files_to_keep)
     new_torrent = RD.torrents.add_magnet(old_torrent['hash']).json()
     logging.info('New magnet added')
     RD.torrents.select_files(new_torrent['id'], cs_files_to_keep)
@@ -66,19 +67,19 @@ def find_torrent_links(torrents):
             if torrent['links'] != []:
                 for link in torrent['links']:
                     torrent_links.append(link)
-    logging.info('Found ' + str(len(torrent_links)) + ' torrent link(s)')
+    logging.info('Found %s torrent link(s)', str(len(torrent_links)))
     return torrent_links
 
 def find_download_links(downloads):
     download_links = []
     for download in downloads:
         download_links.append(download['link'])
-    logging.info('Found ' + str(len(download_links)) + ' download link(s)')
+    logging.info('Found %s download link(s)', str(len(download_links)))
     return download_links
 
 def find_restricted_links(torrent_links, download_links):
     restricted_links = list(set(torrent_links).difference(download_links))
-    logging.info('Found ' + str(len(restricted_links)) + ' restricted link(s)')
+    logging.info('Found %s restricted link(s)', str(len(restricted_links)))
     return restricted_links
 
 def find_bad_torrents(torrents, bad_links):
@@ -90,7 +91,7 @@ def find_bad_torrents(torrents, bad_links):
         if bad_torrent not in dedupe:
             dedupe.append(bad_torrent)
     bad_torrents = dedupe
-    logging.warning(str(len(bad_torrents)) + ' bad torrent(s)')
+    logging.warning('%s bad torrent(s)', str(len(bad_torrents)))
     return bad_torrents
     
 def find(torrents, link):
