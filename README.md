@@ -7,15 +7,19 @@ A set of useful scripts for managing a Real Debrid library
 Install [rd_api_py](https://github.com/s-krilla/rd_api_py)
 
 ```
-python -m pip install rd_api_py
+pip install rd_api_py
 ```
 
 Set environment variables in `.env`
 
 ```bash
 RD_APITOKEN="your_token_here"
-SLEEP=100 # Delay (ms) between requests - optional, default recommended
-LONG_SLEEP=5000 # Long delay (ms) every 500 requests - optional, default recommended
+REFRESH_INTERVAL=15 # Interval (minutes) between refreshes - optional
+LOGLEVEL=INFO # Default INFO - optional
+
+# rd_api_py configuration - optional, defaults recommended 
+SLEEP=2000 # Delay (ms) between requests
+LONG_SLEEP=30000 # Long delay (ms) every 500 requests
 ```
 
 ## Usage
@@ -59,7 +63,7 @@ To run: `docker compose up -d --build`
 
 ### unrestrict.py 
 
-**Warning - uses excessive API calls**
+**Warning - excessive API calls**
 
 - Compares torrent and downloads and finds restricted downloads links
 - Unrestricts download links
