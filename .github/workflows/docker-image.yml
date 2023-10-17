@@ -30,6 +30,12 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - 
+        name: set lower case owner name
+        run: |
+          echo "GITHUB_OWNER_LC=${OWNER,,}" >>${GITHUB_ENV}
+        env:
+          OWNER: '${{ github.repository_owner }}'
+      - 
         name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
@@ -38,4 +44,4 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
           tags: |
-            ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}:latest
+            ghcr.io/${{ GITHUB_OWNER_LC }}/${{ github.event.repository.name }}:latest
