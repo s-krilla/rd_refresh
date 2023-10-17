@@ -44,4 +44,4 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
           tags: |
-            ghcr.io/${{ GITHUB_OWNER_LC }}/${{ github.event.repository.name }}:latest
+            ghcr.io/${{ env.GITHUB_OWNER_LC }}/${{ github.event.repository.name }}:latest
