@@ -44,13 +44,10 @@ services:
   rd_refresh:
     container_name: rd_refresh
     image: ghcr.io/s-krilla/rd_refresh:latest
-    env_file:
-      - .env                         # Be sure to change the env file to `.env` and update API Token.
     environment:
-      - RD_APITOKEN=yourtokenhere    # Alternatively set the token here instead of .env file. 
+      - RD_APITOKEN=yourtokenhere
     restart: unless-stopped
 ```
-To run: `docker compose up -d --build`
 
 ### refresh.py
 
