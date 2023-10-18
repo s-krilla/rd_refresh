@@ -3,9 +3,7 @@ version: "3"
 services:
   rd_refresh:
     container_name: rd_refresh
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: ghcr.io/s-krilla/rd_refresh:latest
     env_file:
       - .env                         # Be sure to change the env file to `.env` and update API Token.
     environment:
